@@ -1,5 +1,6 @@
 package level02.exercise07.assertions;
 
+import level02.exercise07.model.OptionalProvider;
 import org.junit.jupiter.api.*;
 import java.util.Optional;
 import java.util.logging.Logger;

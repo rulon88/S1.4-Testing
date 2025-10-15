@@ -1,4 +1,4 @@
-package level02.exercise07.assertions;
+package level02.exercise07.model;
 
 import java.util.Optional;
 

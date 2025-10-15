@@ -1,5 +1,6 @@
-package level03.exercise01.model;
+package level03.exercise01.assertions;
 
+import level03.exercise01.model.Calculator;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;

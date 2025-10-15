@@ -1,4 +1,4 @@
-package level02.exercise02.model;
+package level02.exercise02.assertions;
 
 public class ReferenceObjectsTest {
 
