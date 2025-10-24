@@ -25,22 +25,15 @@ public class Book {
     public String getIsbn() { return isbn; }
     public boolean isBorrowed() { return borrowed; }
 
-    public void borrow() {
-        if (borrowed)
-            throw new IllegalStateException("Book is already borrowed");
-        borrowed = true;
-    }
 
-    public void returnBook() {
-        if (!borrowed)
-            throw new IllegalStateException("Book was not borrowed");
-        borrowed = false;
+    void setBorrowed(boolean borrowed) {
+        this.borrowed = borrowed;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Book)) return false;
+        if (o == null || o.getClass() != Book.class) return false;
         Book book = (Book) o;
         return isbn.equalsIgnoreCase(book.isbn);
     }
@@ -52,6 +45,8 @@ public class Book {
 
     @Override
     public String toString() {
-        return String.format("%s by %s (ISBN: %s)", title, author, isbn);
+        return String.format("%s by %s [%s] %s",
+                title, author, isbn,
+                borrowed ? "(Borrowed)" : "(Available)");
     }
 }

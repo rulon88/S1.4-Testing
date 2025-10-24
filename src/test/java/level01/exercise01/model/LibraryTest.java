@@ -37,8 +37,6 @@ class LibraryTest {
         library = null;
     }
 
-
-
     @Nested
     @DisplayName("Happy Path Tests")
     @Tag("happy")
@@ -72,10 +70,20 @@ class LibraryTest {
             library.addBook(book1);
             assertEquals("Clean Code", library.getBookAt(0).getTitle());
         }
+
+        @Test
+        @DisplayName("Should borrow and return a book successfully")
+        void shouldBorrowAndReturnBook() {
+            log.info("Testing borrow and return flow...");
+            library.addBook(book1);
+
+            library.borrowBook("111");
+            assertTrue(book1.isBorrowed(), "Book should be borrowed");
+
+            library.returnBook("111");
+            assertFalse(book1.isBorrowed(), "Book should be available again");
+        }
     }
-
-
-
 
     @Nested
     @DisplayName("Bad Path Tests")
@@ -104,6 +112,23 @@ class LibraryTest {
             log.warning("Testing removal of non-existent book...");
             library.addBook(book1);
             assertFalse(library.removeBook("999"));
+        }
+
+        @Test
+        @DisplayName("Should throw when borrowing an already borrowed book")
+        void shouldThrowWhenBorrowingAlreadyBorrowedBook() {
+            log.warning("Testing double borrow...");
+            library.addBook(book1);
+            library.borrowBook("111");
+            assertThrows(IllegalStateException.class, () -> library.borrowBook("111"));
+        }
+
+        @Test
+        @DisplayName("Should throw when returning a book that was not borrowed")
+        void shouldThrowWhenReturningBookNotBorrowed() {
+            log.warning("Testing invalid return...");
+            library.addBook(book1);
+            assertThrows(IllegalStateException.class, () -> library.returnBook("111"));
         }
     }
 }

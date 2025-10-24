@@ -39,45 +39,54 @@ class BookTest {
         @DisplayName("Should borrow and return correctly")
         void shouldBorrowAndReturn() {
             log.info("Borrowing and returning a book...");
+
+            Library library = new Library();
             Book book = new Book("Refactoring", "Martin Fowler", "222");
-            book.borrow();
-            assertTrue(book.isBorrowed());
-            book.returnBook();
-            assertFalse(book.isBorrowed());
-        }
-    }
 
+            library.addBook(book);
+            library.borrowBook("222");
+            assertTrue(book.isBorrowed(), "Book should be marked as borrowed");
 
-
-
-    @Nested
-    @DisplayName("Bad Path Tests")
-    @Tag("bad")
-    class BadPath {
-
-        @Test
-        @DisplayName("Should throw for empty title")
-        void shouldThrowForEmptyTitle() {
-            log.warning("Testing empty title...");
-            assertThrows(IllegalArgumentException.class,
-                    () -> new Book("", "Author", "123"));
+            library.returnBook("222");
+            assertFalse(book.isBorrowed(), "Book should be marked as available again");
         }
 
-        @Test
-        @DisplayName("Should throw when borrowing twice")
-        void shouldThrowWhenBorrowingTwice() {
-            log.warning("Testing double borrow...");
-            Book book = new Book("Effective Java", "Joshua Bloch", "111");
-            book.borrow();
-            assertThrows(IllegalStateException.class, book::borrow);
-        }
 
-        @Test
-        @DisplayName("Should throw when returning if not borrowed")
-        void shouldThrowWhenReturningIfNotBorrowed() {
-            log.warning("Testing invalid return...");
-            Book book = new Book("Domain Driven Design", "Eric Evans", "333");
-            assertThrows(IllegalStateException.class, book::returnBook);
+        @Nested
+        @DisplayName("Bad Path Tests")
+        @Tag("bad")
+        class BadPath {
+
+            @Test
+            @DisplayName("Should throw for empty title")
+            void shouldThrowForEmptyTitle() {
+                log.warning("Testing empty title...");
+                assertThrows(IllegalArgumentException.class,
+                        () -> new Book("", "Author", "123"));
+            }
+
+            @Test
+            @DisplayName("Should throw when borrowing twice via Library")
+            void shouldThrowWhenBorrowingTwiceViaLibrary() {
+                log.warning("Testing double borrow through Library...");
+                Library library = new Library();
+                Book book = new Book("Effective Java", "Joshua Bloch", "111");
+                library.addBook(book);
+                library.borrowBook("111");
+
+                assertThrows(IllegalStateException.class, () -> library.borrowBook("111"));
+            }
+
+            @Test
+            @DisplayName("Should throw when returning if not borrowed via Library")
+            void shouldThrowWhenReturningIfNotBorrowedViaLibrary() {
+                log.warning("Testing invalid return through Library...");
+                Library library = new Library();
+                Book book = new Book("Domain Driven Design", "Eric Evans", "333");
+                library.addBook(book);
+
+                assertThrows(IllegalStateException.class, () -> library.returnBook("333"));
+            }
         }
     }
 }

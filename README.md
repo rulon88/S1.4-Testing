@@ -14,11 +14,10 @@ The goal of this project is to learn how to write **clean, modular, and testable
 This repository includes three levels of testing:
 
 | Level | Focus | Technologies / Concepts |
-|-------|-------|---------------------------|
-| Level 1 | Basic unit testing with JUnit 5 | `@Test`, `assertEquals`, `assertThrows`, `@Nested`, `@DisplayName` |
-| Level 2 | More expressive assertions using AssertJ | `assertThat`, `isEqualTo`, `containsExactly`, `doesNotHaveDuplicates`, `assertThatThrownBy`, `Optional` |
-| Level 3 | TDD methodology (Red → Green → Refactor) | Write test first, then code, then refactor; use of parametrized tests, Given/When/Then style |
-
+|-------|--------|--------------------------|
+| **Level 1** | Basic unit testing with JUnit 5 | `@Test`, `assertEquals`, `assertThrows`, `@Nested`, `@DisplayName` |
+| **Level 2** | More expressive assertions with AssertJ | `assertThat`, `isEqualTo`, `doesNotHaveDuplicates`, `assertThatThrownBy`, `Optional` |
+| **Level 3** | TDD methodology (Red → Green → Refactor) | Write tests first → Implement → Refactor; Calculator example with exception handling |
 ---
 ## 🧩 Test Structure and Conventions
 
@@ -51,46 +50,39 @@ This makes the execution logs more readable and realistic for **professional QA 
 
 Example console output:
 
-Starting DniCalculator Test Suite...
-INFO: New DniCalculator instance created.
-WARNING: Testing invalid DNI...
-INFO: Test completed.
-DniCalculator Test Suite finished.
+-Starting DniCalculator Test Suite...
 
+-INFO: New DniCalculator instance created.
+
+-WARNING: Testing invalid DNI...
+
+-INFO: Test completed.
+
+-DniCalculator Test Suite finished.
 ## 📖 Summary by Level
 
-### Level 1: JUnit Basics
-
+### 🔹 Level 1 – JUnit Basics
 Exercises include:
 - **Library** management (add, remove, sort, get by position)
 - **DNI calculation** using `@ParameterizedTest` and `@CsvSource`
-- Throwing and catching `ArrayIndexOutOfBoundsException`
+- Exception handling (`ArrayIndexOutOfBoundsException`)
+  Focus: learn test grouping, lifecycle annotations, and exception handling.
 
-This level ensures you understand how to write unit tests in JUnit 5, how to group tests, and how to use lifecycle annotations.
-
-### Level 2: AssertJ Assertions
-
+### 🔹 Level 2 – AssertJ Assertions
 Exercises include:
-- Comparing integers, object references
-- Verifying two arrays are identical
-- ArrayLists with different data types: verifying order, duplicates, containment
-- Maps: verifying presence of keys and entries
+- Integer and object comparisons
+- ArrayList order, duplicates, containment
+- Map key/value checks
 - Exception testing with `assertThatThrownBy`
-- Optional: verifying empty or present Optional
+- Optional validation (`isEmpty`, `isPresent`)
+  Focus: improve readability and fluency using AssertJ.
 
-This level adds fluency and readability to your tests via AssertJ.
-
-### Level 3: TDD – Calculator Example
-
-You’ll build a `Calculator` class following **TDD cycles**:
-
-- Write tests first (fail intentionally)
-- Implement just enough code to make tests pass
-- Refactor the implementation without breaking tests
-
-Tests include addition, subtraction, multiplication, division, and division by zero.
-
----
+### 🔹 Level 3 – TDD Calculator
+Follow the **TDD cycle** (Red → Green → Refactor):
+- Write failing tests first
+- Implement only what’s needed to pass
+- Refactor safely  
+  Covers: addition, subtraction, multiplication, division, and division-by-zero.
 
 ## Technologies Used
 
